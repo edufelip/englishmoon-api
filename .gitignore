@@ -1,0 +1,18 @@
+/build/
+/.gradle/
+/.kotlin/
+/.openapi-generator/
+/out/
+/.idea/
+*.iml
+*.log
+*.class
+
+# Kotlin
+*.kts~
+
+# Spring Boot
+application-local.yaml
+
+# Testcontainers
+*.pid
