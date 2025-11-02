@@ -36,9 +36,9 @@ Spring Boot 3.x + Kotlin service that powers the EnglishMoon platform. The codeb
    ```
 3. **Copy & load environment variables**
    ```bash
-   cp ../.env.example ../.env
-   # edit ../.env with real secrets (or export manually)
-   export $(grep -v '^#' ../.env | xargs)  # or use direnv / IDE EnvFile plugin
+   cp .env.example .env
+   # edit .env with real secrets (or export manually)
+   export $(grep -v '^#' .env | xargs)  # or use direnv / IDE EnvFile plugin
    ```
 4. **Apply migrations & run the app**
    ```bash
@@ -98,11 +98,8 @@ Recommended Google Secret Manager entries and their mapped environment variables
 
 | Secret ID | Description | Environment Variable |
 |-----------|-------------|----------------------|
-| `englishmoon-api-db-url` | JDBC connection string | `SPRING_DATASOURCE_URL` |
-| `englishmoon-api-db-username` | Database user | `SPRING_DATASOURCE_USERNAME` |
 | `englishmoon-api-db-password` | Database password | `SPRING_DATASOURCE_PASSWORD` |
 | `englishmoon-api-jwt-secret` | Base64-encoded signing secret (256-bit) | `SECURITY_JWT_SECRET` |
-| `englishmoon-api-jwt-refresh-domain` | Cookie domain for refresh token | `SECURITY_JWT_REFRESH_COOKIE_DOMAIN` |
 
 Load secrets into the process before starting the app:
 ```bash
@@ -110,7 +107,7 @@ export SPRING_DATASOURCE_PASSWORD="$(gcloud secrets versions access latest --sec
 export SECURITY_JWT_SECRET="$(gcloud secrets versions access latest --secret=englishmoon-api-jwt-secret)"
 ./gradlew bootRun
 ```
-CI/CD pipelines should follow the same pattern to prevent secrets from being committed.
+CI/CD pipelines should follow the same pattern to prevent secrets from being committed. GitHub Actions jobs should reference repository or environment secrets named `SPRING_DATASOURCE_PASSWORD` and `SECURITY_JWT_SECRET`, populated with the same rotated values (or fed automatically via workload identity) so workflows never read secrets from the repository.
 
 ## Contract-First Workflow
 1. Update the root `../openapi.yaml`.

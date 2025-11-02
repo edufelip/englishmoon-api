@@ -4,6 +4,7 @@ import com.englishmoon.infra.persistence.auth.PasswordResetTokenJpaRepository
 import com.englishmoon.infra.persistence.user.UserEntity
 import com.englishmoon.infra.persistence.user.UserJpaRepository
 import com.englishmoon.support.InMemoryEmailSender
+import com.englishmoon.support.TestJwtSecret
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
@@ -32,7 +33,6 @@ import java.util.UUID
     properties = [
         "spring.jpa.hibernate.ddl-auto=validate",
         "spring.datasource.hikari.maximum-pool-size=1",
-        "security.jwt.secret=***REMOVED***",
     ],
 )
 class PasswordResetControllerIT(
@@ -147,6 +147,7 @@ class PasswordResetControllerIT(
             registry.add("spring.datasource.url", postgres::getJdbcUrl)
             registry.add("spring.datasource.username", postgres::getUsername)
             registry.add("spring.datasource.password", postgres::getPassword)
+            TestJwtSecret.register(registry)
         }
     }
 }

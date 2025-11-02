@@ -1,5 +1,6 @@
 package com.englishmoon.infra.web.auth
 
+import com.englishmoon.support.TestJwtSecret
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -27,7 +28,6 @@ import org.testcontainers.junit.jupiter.Testcontainers
     properties = [
         "spring.jpa.hibernate.ddl-auto=validate",
         "spring.datasource.hikari.maximum-pool-size=1",
-        "security.jwt.secret=***REMOVED***",
     ],
 )
 class AuthControllerIT(
@@ -168,6 +168,7 @@ class AuthControllerIT(
             registry.add("spring.datasource.url", postgres::getJdbcUrl)
             registry.add("spring.datasource.username", postgres::getUsername)
             registry.add("spring.datasource.password", postgres::getPassword)
+            TestJwtSecret.register(registry)
         }
     }
 }

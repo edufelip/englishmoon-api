@@ -2,9 +2,9 @@ spring:
   application:
     name: englishmoon-api
   datasource:
-    url: jdbc:postgresql://localhost:5432/englishmoon
-    username: englishmoon
-    password: ***REMOVED***
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/englishmoon}
+    username: ${SPRING_DATASOURCE_USERNAME:englishmoon}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
   jpa:
     hibernate:
       ddl-auto: validate
@@ -21,7 +21,7 @@ server:
 
 security:
   jwt:
-    secret: ***REMOVED***
+    secret: ${SECURITY_JWT_SECRET:}
     access-token-ttl-minutes: 15
     issuer: englishmoon
     refresh-cookie-secure: false

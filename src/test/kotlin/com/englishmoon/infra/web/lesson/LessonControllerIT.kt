@@ -4,6 +4,7 @@ import com.englishmoon.infra.persistence.course.CourseEntity
 import com.englishmoon.infra.persistence.course.CourseJpaRepository
 import com.englishmoon.infra.persistence.lesson.LessonEntity
 import com.englishmoon.infra.persistence.lesson.LessonJpaRepository
+import com.englishmoon.support.TestJwtSecret
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Tag
@@ -28,7 +29,6 @@ import java.util.UUID
     properties = [
         "spring.jpa.hibernate.ddl-auto=validate",
         "spring.datasource.hikari.maximum-pool-size=1",
-        "security.jwt.secret=***REMOVED***",
     ],
 )
 class LessonControllerIT(
@@ -108,6 +108,7 @@ class LessonControllerIT(
             registry.add("spring.datasource.url", postgres::getJdbcUrl)
             registry.add("spring.datasource.username", postgres::getUsername)
             registry.add("spring.datasource.password", postgres::getPassword)
+            TestJwtSecret.register(registry)
         }
     }
 }

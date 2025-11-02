@@ -2,6 +2,7 @@ package com.englishmoon.infra.web.user
 
 import com.englishmoon.infra.persistence.user.UserJpaRepository
 import com.englishmoon.support.InMemoryEmailSender
+import com.englishmoon.support.TestJwtSecret
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Tag
@@ -27,7 +28,6 @@ import org.testcontainers.junit.jupiter.Testcontainers
     properties = [
         "spring.jpa.hibernate.ddl-auto=validate",
         "spring.datasource.hikari.maximum-pool-size=1",
-        "security.jwt.secret=***REMOVED***",
     ],
 )
 class UserControllerIT(
@@ -107,6 +107,7 @@ class UserControllerIT(
             registry.add("spring.datasource.url", postgres::getJdbcUrl)
             registry.add("spring.datasource.username", postgres::getUsername)
             registry.add("spring.datasource.password", postgres::getPassword)
+            TestJwtSecret.register(registry)
         }
     }
 }

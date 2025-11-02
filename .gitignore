@@ -16,3 +16,8 @@ application-local.yaml
 
 # Testcontainers
 *.pid
+
+# Environment files
+.env
+.env.*
+!.env.example
